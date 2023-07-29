@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>History Log</h2>
+<div mat-dialog-content>
+  <ng-container *ngIf="history && history.length; else noHistory">
+    <ul>
+      <li *ngFor="let entry of history">
+        {{ entry.timestamp | date:'MMM d, y, h:mm a' }}
+      </li>
+    </ul>
+  </ng-container>
+</div>
+<div>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>
+
+<ng-template #noHistory>
+  <div>No history available.</div>
+</ng-template>

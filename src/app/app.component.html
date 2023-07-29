@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayoutAlign="start center" class="header">
+  <img src="assets/images/task.png" alt="nav-img">
+  <h1 fxFlex="auto">TASK MASTER</h1>
+  <div fxLayout="row" fxLayoutAlign="end start">
+    <!--"ADD TASK"-->
+    <button mat-raised-button color="primary" *ngIf="isTaskListVisible" (click)="showTaskForm()">ADD TASK</button>
+
+    <!--"MY TASKS"-->
+    <button mat-raised-button color="primary" *ngIf="isTaskFormVisible" (click)="showTaskList()">MY TASKS</button>
+  </div>
+</div>
+
+<div fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="start stretch">
+  
+  <app-task-list *ngIf="isTaskListVisible"></app-task-list>
+
+  
+  <app-task-form *ngIf="isTaskFormVisible"></app-task-form>
+  
+</div>

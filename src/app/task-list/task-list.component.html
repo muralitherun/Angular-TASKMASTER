@@ -1,0 +1,137 @@
+<div fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="center">
+  <div class="top">
+    <img src="https://media.giphy.com/media/Kc1tJDZ3Q4d2pfalIG/giphy.gif" alt="task-gif">
+    <p>Ready to conquer tasks again and become the TASK MASTER?" 😈🚀</p>
+  </div>
+  
+  <div class="table-container">
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <button mat-button [matMenuTriggerFor]="sortMenu" aria-label="Sort">
+        Sort
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="exportTasksToCSV()">EXPORT TO CSV</button>
+      </div>      
+      <mat-menu #sortMenu="matMenu">
+        <button mat-menu-item (click)="sortTasksByDueDate('asc')">Sort by Due Date (ASC)</button>
+        <button mat-menu-item (click)="sortTasksByDueDate('desc')">Sort by Due Date (DESC)</button>
+      </mat-menu>
+    </div>
+  
+  <mat-table [dataSource]="tasks" matSort>
+    <!-- Task Title -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>TITLE</mat-header-cell>
+      <mat-cell *matCellDef="let task">
+        <ng-container *ngIf="!task.isEdit; else editMode">{{ task.title }}</ng-container>
+        <ng-template #editMode>
+          <mat-form-field>
+            <input matInput [(ngModel)]="task.title" name="title" required>
+          </mat-form-field>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Description -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>DESCRIPTION</mat-header-cell>
+      <mat-cell *matCellDef="let task">
+        <ng-container *ngIf="!task.isEdit; else editMode">{{ task.description }}</ng-container>
+        <ng-template #editMode>
+          <mat-form-field>
+            <textarea matInput [(ngModel)]="task.description" name="description" required></textarea>
+          </mat-form-field>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Due Date -->
+    <ng-container matColumnDef="dueDate">
+      <mat-header-cell *matHeaderCellDef>DUE DATE</mat-header-cell>
+      <mat-cell *matCellDef="let task">
+        <ng-container *ngIf="!task.isEdit; else editMode">{{ task.dueDate | date }}</ng-container>
+        <ng-template #editMode>
+          <mat-form-field>
+            <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="task.dueDate" name="dueDate" required>
+            <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #dueDatePicker></mat-datepicker>
+          </mat-form-field>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Priority -->
+    <ng-container matColumnDef="priority">
+      <mat-header-cell *matHeaderCellDef>PRIORITY</mat-header-cell>
+      <mat-cell *matCellDef="let task">
+        <ng-container *ngIf="!task.isEdit; else editMode">{{ task.priority }}</ng-container>
+        <ng-template #editMode>
+          <mat-form-field>
+            <mat-label>Priority</mat-label>
+            <mat-select [(ngModel)]="task.priority" name="priority" required>
+              <mat-option value="low">Low</mat-option>
+              <mat-option value="medium">Medium</mat-option>
+              <mat-option value="high">High</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef>STATUS</mat-header-cell>
+      <mat-cell *matCellDef="let task">
+        <ng-container *ngIf="!task.isEdit; else editMode">{{ task.status }}</ng-container>
+        <ng-template #editMode>
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="task.status" name="status" required>
+              <mat-option value="to-do">To-Do</mat-option>
+              <mat-option value="in-progress">In-Progress</mat-option>
+              <mat-option value="completed">Completed</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>ACTIONS</mat-header-cell>
+      <mat-cell *matCellDef="let task">
+        <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end center">
+          <button mat-icon-button [matMenuTriggerFor]="actionsMenu" aria-label="Actions">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+        <mat-menu #actionsMenu="matMenu">
+          <ng-container *ngIf="!task.isEdit; else editMode">
+            <button mat-menu-item (click)="editTask(task)">
+              <mat-icon>edit</mat-icon> Edit
+            </button>
+            <button mat-menu-item (click)="deleteTask(task)">
+              <mat-icon>delete</mat-icon> Delete
+            </button>
+            <button mat-menu-item (click)="viewHistory(task)">
+              <mat-icon>history</mat-icon> History
+            </button>
+          </ng-container>
+          <ng-template #editMode>
+            <button mat-menu-item (click)="saveTask(task)">
+              <mat-icon>check</mat-icon> Save
+            </button>
+            <button mat-menu-item (click)="cancelEdit(task)">
+              <mat-icon>cancel</mat-icon> Cancel
+            </button>
+          </ng-template>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  </div>
+</div>

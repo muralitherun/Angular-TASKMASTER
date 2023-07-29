@@ -1,0 +1,60 @@
+/* Adjust max-width as needed */
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.top img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.top p {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.form-field mat-form-field {
+  width: 100%;
+}
+
+.form-field mat-datepicker-toggle {
+  margin-left: -25px;
+}
+
+.center-button {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .form-field {
+    margin-bottom: 10px;
+  }
+}

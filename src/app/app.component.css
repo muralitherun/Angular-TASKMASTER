@@ -1,0 +1,15 @@
+.header {
+    padding: 16px; 
+    background-color: #654E92;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .header img {
+    max-height: 40px; 
+    margin-right: 8px; 
+  }
+  
+  h1 {
+    color: white;
+    margin: 0; 
+  }  

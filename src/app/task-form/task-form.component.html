@@ -1,0 +1,56 @@
+<div class="top">
+  <img src="https://media.giphy.com/media/8HcT5UwUTT0XtlIvmc/giphy.gif" alt="todo">
+  <p>Ready for a new adventure? Task to add, or not to add? 🤔🚀</p>
+</div>
+
+<div class="form-container">
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <mat-form-field>
+        <input matInput formControlName="title" placeholder="Title" required>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field>
+        <textarea matInput formControlName="description" placeholder="Description" required></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field>
+        <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate" placeholder="Due Date" required>
+        <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dueDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority" required>
+          <mat-option value="low">Low</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="high">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option value="to-do">To-Do</mat-option>
+          <mat-option value="in-progress">In-Progress</mat-option>
+          <mat-option value="completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="center-button">
+      <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
+        {{ isEditMode ? 'Update' : 'Add new task' }}
+      </button>
+    </div>
+  </form>
+</div>
